@@ -10,19 +10,19 @@ import 'package:flutter_assist/flutter_assist.dart';
 /// description 图片控件
 class ZImage extends StatefulWidget {
   final String src;
-  final double width;
-  final double height;
-  final Color color;
+  final double? width;
+  final double? height;
+  final Color? color;
   final BoxFit fit;
-  final bool useCached;
-  final double radius;
-  final double aspectRatio;
-  final VoidCallback onTap;
-  final VoidCallback onLongPress;
-  final String imageFolder;
+  final bool? useCached;
+  final double? radius;
+  final double? aspectRatio;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
+  final String? imageFolder;
 
   const ZImage({
-    @required this.src,
+    required this.src,
     this.width,
     this.height,
     this.color,
@@ -33,7 +33,7 @@ class ZImage extends StatefulWidget {
     this.onTap,
     this.onLongPress,
     this.imageFolder,
-  }) : assert(src != null);
+  });
 
   @override
   _ZImageState createState() => _ZImageState();
@@ -60,9 +60,9 @@ class _ZImageState extends State<ZImage> {
       if (widget.useCached ?? ZConfigImage.useCached) {
         image = CachedNetworkImage(
           imageUrl: widget.src,
-          width: widget.width,
-          height: widget.height,
-          color: widget.color,
+          width: widget.width!,
+          height: widget.height!,
+          color: widget.color!,
           fit: widget.fit,
         );
       } else {
@@ -83,12 +83,12 @@ class _ZImageState extends State<ZImage> {
       );
     }
     //裁剪
-    if (widget.radius != null && widget.radius > 0) {
+    if (widget.radius != null && widget.radius! > 0) {
       if (widget.radius == double.infinity) {
         image = ClipOval(child: image);
       } else {
         image = ClipRRect(
-          borderRadius: BorderRadius.circular(widget.radius),
+          borderRadius: BorderRadius.circular(widget.radius!),
           child: image,
         );
       }
@@ -96,7 +96,7 @@ class _ZImageState extends State<ZImage> {
     //固定宽高比
     if (widget.aspectRatio != null) {
       image = AspectRatio(
-        aspectRatio: widget.aspectRatio,
+        aspectRatio: widget.aspectRatio!,
         child: image,
       );
     }

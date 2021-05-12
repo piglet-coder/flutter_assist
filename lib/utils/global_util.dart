@@ -20,7 +20,7 @@ class ZGlobalUtil {
 
   ///双击退出APP
   static int _last = 0;
-  static Future<bool> doubleClickBack(Function onClickBack) {
+  static Future<bool> doubleClickBack(Function? onClickBack) {
     int now = DateTime.now().millisecondsSinceEpoch;
     if (now - _last > 1000) {
       _last = DateTime.now().millisecondsSinceEpoch;

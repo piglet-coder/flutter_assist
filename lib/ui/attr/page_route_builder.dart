@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// description Android页面转场动画
 class ZPageRouteBuilder extends PageRouteBuilder{
 
-  final Widget widget;
+  final Widget? widget;
 
   ZPageRouteBuilder(this.widget)
       :super(
@@ -19,7 +19,7 @@ class ZPageRouteBuilder extends PageRouteBuilder{
           Animation<double> animation1,
           Animation<double> animation2,
           ){
-        return widget;
+        return widget!;
       },
       transitionsBuilder:(
           BuildContext context,

@@ -3,7 +3,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'base_view_model.dart';
 
 abstract class ZBaseViewModelRefresh<T> extends ZBaseViewModel {
-  T data;
+  T? data;
 
   RefreshController _refreshController = RefreshController(initialRefresh: false);
 
@@ -11,9 +11,9 @@ abstract class ZBaseViewModelRefresh<T> extends ZBaseViewModel {
 
   // 下拉刷新
   refresh({
-    ValueChanged<T> onSuccess,
-    ValueChanged<T> onCache,
-    ValueChanged<String> onError,
+    ValueChanged<T>? onSuccess,
+    ValueChanged<T>? onCache,
+    ValueChanged<String>? onError,
   }) async {
     setBusy();
     try {
@@ -55,9 +55,9 @@ abstract class ZBaseViewModelRefresh<T> extends ZBaseViewModel {
 
   // 加载数据
   loadData({
-    ValueChanged<T> onSuccess,
-    ValueChanged<T> onCache,
-    ValueChanged<String> onError,
+    ValueChanged<T>? onSuccess,
+    ValueChanged<T>? onCache,
+    ValueChanged<String>? onError,
   });
 
   @override

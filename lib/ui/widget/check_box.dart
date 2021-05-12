@@ -8,27 +8,27 @@ import 'package:flutter_assist/flutter_assist.dart';
 class ZCheckBox extends StatefulWidget {
   final bool value;
   final dynamic tag;
-  final ValueChanged<bool> onChanged;
-  final double width;
-  final double height;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final Alignment alignment;
+  final ValueChanged<bool?>? onChanged;
+  final double? width;
+  final double? height;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final Alignment? alignment;
   final String data;
-  final TextStyle checkedStyle;
-  final Decoration checkedDecoration;
-  final TextStyle uncheckedStyle;
-  final Decoration uncheckedDecoration;
+  final TextStyle? checkedStyle;
+  final Decoration? checkedDecoration;
+  final TextStyle? uncheckedStyle;
+  final Decoration? uncheckedDecoration;
 
   final bool noBox;
   final bool tristate;
-  final Widget checkIcon;
-  final Widget uncheckIcon;
-  final Widget indeterminateCheckIcon;
-  final double drawablePadding;
-  final Color checkColor;
-  final Color uncheckColor;
-  final Color indeterminateCheckColor;
+  final Widget? checkIcon;
+  final Widget? uncheckIcon;
+  final Widget? indeterminateCheckIcon;
+  final double? drawablePadding;
+  final Color? checkColor;
+  final Color? uncheckColor;
+  final Color? indeterminateCheckColor;
   final MainAxisSize mainAxisSize;
 
   ZCheckBox(
@@ -55,14 +55,14 @@ class ZCheckBox extends StatefulWidget {
     this.uncheckColor,
     this.indeterminateCheckColor,
     this.mainAxisSize = MainAxisSize.min,
-  })  : assert(!noBox || !tristate || (noBox == true && tristate != true), '没有选中框，三态无法UI展示');
+  }) : assert(!noBox || !tristate || (noBox == true && tristate != true), '没有选中框，三态无法UI展示');
 
   @override
   _ZCheckBoxState createState() => _ZCheckBoxState();
 }
 
 class _ZCheckBoxState extends State<ZCheckBox> {
-  bool _value;
+  bool? _value;
 
   @override
   void initState() {
@@ -74,7 +74,7 @@ class _ZCheckBoxState extends State<ZCheckBox> {
   Widget build(BuildContext context) {
     var child;
     child = Text(
-      widget.data ?? '',
+      widget.data,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       style: widget.value == false ? widget.uncheckedStyle : widget.checkedStyle,
@@ -111,12 +111,12 @@ class _ZCheckBoxState extends State<ZCheckBox> {
     return InkWell(
       onTap: () {
         setState(() {
-          if(widget.tristate == true){
+          if (widget.tristate == true) {
             _value = (_value == true) ? null : (_value == null ? false : true);
-          }else{
-            _value = !_value;
+          } else {
+            _value = !_value!;
           }
-          widget?.onChanged(_value);
+          widget.onChanged!(_value);
         });
       },
       child: child,

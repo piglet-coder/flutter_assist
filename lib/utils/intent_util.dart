@@ -10,7 +10,7 @@ import 'package:flutter_assist/flutter_assist.dart';
 class ZIntentUtil {
   const ZIntentUtil._();
 
-  static finish(BuildContext context, {Object data}) {
+  static finish(BuildContext context, {Object? data}) {
     if (Navigator.canPop(context)) {
       return Navigator.of(context).pop(data);
     } else {
@@ -20,14 +20,13 @@ class ZIntentUtil {
 
   static Future push(
     BuildContext ctx, {
-    String routeName,
-    Widget widget,
+    String? routeName,
+    Widget? widget,
     dynamic data,
     bool finish = false,
     bool removeAll = false,
   }) {
-    assert(!(routeName == null && widget == null),
-        'ZIntentUtil.push：routeName、widget不可同时为null');
+    assert(!(routeName == null && widget == null), 'ZIntentUtil.push：routeName、widget不可同时为null');
     if (routeName != null) {
       return _pushByName(
         ctx,
@@ -50,8 +49,8 @@ class ZIntentUtil {
     BuildContext ctx,
     String routeName, {
     dynamic data,
-    bool finish,
-    bool removeAll,
+    bool? finish,
+    required bool removeAll,
   }) {
     if (removeAll) {
       return Navigator.of(ctx).pushNamedAndRemoveUntil(
@@ -60,7 +59,7 @@ class ZIntentUtil {
         arguments: data,
       );
     } else {
-      if (finish) {
+      if (finish!) {
         return Navigator.of(ctx).pushReplacementNamed(
           routeName,
           arguments: data,
@@ -73,25 +72,20 @@ class ZIntentUtil {
 
   static Future _pushByWidget(
     BuildContext ctx,
-    Widget widget, {
-    bool finish,
-    bool removeAll,
+    Widget? widget, {
+    bool? finish,
+    required bool removeAll,
   }) {
     if (removeAll) {
-      return Navigator.of(ctx).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => widget),
-          (route) => route == null);
+      return Navigator.of(ctx).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => widget!), (route) => route == null);
     } else {
-      if (finish) {
-        return Navigator.of(ctx)
-            .pushReplacement(MaterialPageRoute(builder: (context) => widget));
+      if (finish!) {
+        return Navigator.of(ctx).pushReplacement(MaterialPageRoute(builder: (context) => widget!));
       } else {
         if (Platform.isAndroid) {
-          return Navigator.of(ctx, rootNavigator: true)
-              .push(ZPageRouteBuilder(widget));
+          return Navigator.of(ctx, rootNavigator: true).push(ZPageRouteBuilder(widget));
         } else {
-          return Navigator.of(ctx, rootNavigator: true)
-              .push(MaterialPageRoute(builder: (context) => widget));
+          return Navigator.of(ctx, rootNavigator: true).push(MaterialPageRoute(builder: (context) => widget!));
         }
       }
     }

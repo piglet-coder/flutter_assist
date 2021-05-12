@@ -39,7 +39,7 @@ class ZTimeUtil {
 
   /// 获取当前时间
   /// [isStart] null:当前时间；true:今天开始时间；false:今天结束时间
-  static DateTime getCurrentDay({bool isStart}) {
+  static DateTime getCurrentDay({bool? isStart}) {
     return isStart == null ? _now : (isStart ? _now.theDayStart : _now.theDayEnd);
   }
 
@@ -53,13 +53,11 @@ class ZTimeUtil {
   /// 在当前时间下，指定往前、往后几天
   /// [days] = 0，为今天；> 0，为往后多少天；< 0，为往前几天
   static DateTime getAssignDay(int days) {
-    assert(days != null, '指定天数不正确，当前指定天数为($days)');
     return days >= 0 ? _now.add(Duration(days: days)).theDayEnd : _now.subtract(Duration(days: days.abs())).theDayStart;
   }
 
   /// 字符串转DateTime
   static DateTime str2date(String dateStr, [String format = ZTimeFormat.def]) {
-    assert(dateStr != null, '字符串不可为null');
     var df = DateFormat(format);
     try {
       return df.parse(dateStr);
@@ -70,7 +68,6 @@ class ZTimeUtil {
 
   /// 时间戳转DateTime
   static DateTime time2date(int time, [String format = ZTimeFormat.def]) {
-    assert(time != null, '时间戳不可为null');
     var timeLength = time.toString().length;
     assert(timeLength == 10 || timeLength == 13, '时间戳长度不正确，当前时间戳为($time)');
     return DateTime.fromMillisecondsSinceEpoch(timeLength == 10 ? time * 1000 : time);
@@ -78,13 +75,11 @@ class ZTimeUtil {
 
   /// 获取间隔天数
   static int getIntervalDay(DateTime date1, DateTime date2) {
-    assert(date1 != null && date2 != null, 'DateTime不可为null');
     return date1.difference(date2).inDays.abs();
   }
 
   /// 获取周开始结束时间
-  static DateTime getWeekStartOrEnd(bool isStart, {int year, int month, int day}) {
-    assert(isStart != null, '必须指定获取周的开始结束');
+  static DateTime getWeekStartOrEnd(bool isStart, {int? year, int? month, int? day}) {
     if (year == null) year = getYear;
     if (month == null) month = getMonth;
     if (day == null) day = getDay;
@@ -94,23 +89,21 @@ class ZTimeUtil {
   }
 
   /// 获取月开始结束时间
-  static DateTime getMonthStartOrEnd(bool isStart, {int year, int month}) {
-    assert(isStart != null, '必须指定获取月初月末');
-    if (year == null)  year = getYear;
+  static DateTime getMonthStartOrEnd(bool isStart, {int? year, int? month}) {
+    if (year == null) year = getYear;
     if (month == null) month = getMonth;
     //dart已经处理了月份超出12的情况，比如month+1为12+1，则DateTime会跳到下一年1月
     return isStart ? DateTime(year, month, 1).theDayStart : DateTime(year, month + 1, 1).theDayEnd.subtract(Duration(days: 1));
   }
 
   /// 获取季度开始结束时间
-  static DateTime getQuarterStartOrEnd(bool isStart, {int year, int quarter}) {
-    assert(isStart != null, '必须指定获取季度开始结束');
+  static DateTime getQuarterStartOrEnd(bool isStart, {int? year, int? quarter}) {
     if (year == null) year = getYear;
     if (quarter != null)
       assert(quarter >= 1 && quarter <= 4, '季度不正确，当前季度为($quarter)');
     else
       quarter = getQuarter(getMonth);
-    return getMonthStartOrEnd(isStart, year: year, month: isStart ? (quarter*3)-2 : quarter*3);
+    return getMonthStartOrEnd(isStart, year: year, month: isStart ? (quarter * 3) - 2 : quarter * 3);
   }
 
   /// 判断指定月份是否存在指定日期

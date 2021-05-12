@@ -15,36 +15,29 @@ RegExp _regExpNum = RegExp(r'[0-9.]');
 
 ///基础常用
 class ZInputFormatterCommon {
-
   const ZInputFormatterCommon._();
 
   //单行
-  static final TextInputFormatter singleLine =
-      FilteringTextInputFormatter.deny('\n');
+  static final TextInputFormatter singleLine = FilteringTextInputFormatter.deny('\n');
 
   //数字
-  static final TextInputFormatter num =
-      FilteringTextInputFormatter.allow(_regExpNum);
+  static final TextInputFormatter num = FilteringTextInputFormatter.allow(_regExpNum);
 
   //密码
-  static final TextInputFormatter pwd =
-      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]'));
+  static final TextInputFormatter pwd = FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]'));
 
   //邮箱
-  static final TextInputFormatter email =
-      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9@.]'));
+  static final TextInputFormatter email = FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9@.]'));
 }
 
 ///纠正不规范的输入数字
 class ZInputFormatterNumBeautiful extends TextInputFormatter {
-
   @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     if (newValue.text != '' && !_regExpNum.hasMatch(newValue.text)) {
       return oldValue;
     }
-    String neatValue;
+    String? neatValue;
     String newText = newValue.text;
     if (newText.contains('.')) {
       if (newText == '.') {
@@ -53,11 +46,7 @@ class ZInputFormatterNumBeautiful extends TextInputFormatter {
     } else {
       neatValue = newValue.text == '' ? '' : newText.toInt.toString();
     }
-    return neatValue == null
-        ? newValue
-        : TextEditingValue(
-            text: neatValue,
-            selection: TextSelection.collapsed(offset: neatValue.length));
+    return neatValue == null ? newValue : TextEditingValue(text: neatValue, selection: TextSelection.collapsed(offset: neatValue.length));
   }
 }
 
@@ -67,8 +56,7 @@ class ZInputFormatterDecimalDigits extends TextInputFormatter {
 
   ZInputFormatterDecimalDigits(
     this.decimalDigits,
-  ) : assert(decimalDigits != null && decimalDigits > 0,
-            'ZInputFormatterDecimalDigits:请正确的设置decimalDigits');
+  ) : assert(decimalDigits > 0, 'ZInputFormatterDecimalDigits:请正确的设置decimalDigits');
 
   @override
   TextEditingValue formatEditUpdate(
@@ -79,13 +67,9 @@ class ZInputFormatterDecimalDigits extends TextInputFormatter {
     List<String> newArr = newTxt.split('.');
     if (newArr.length != 1 && newArr[1].length > decimalDigits) {
       String value = '${newArr[0]}.${newArr[1].substring(0, decimalDigits)}';
-      return TextEditingValue(
-          text: value,
-          selection: TextSelection.collapsed(offset: value.length));
+      return TextEditingValue(text: value, selection: TextSelection.collapsed(offset: value.length));
     }
-    return TextEditingValue(
-        text: newTxt,
-        selection: TextSelection.collapsed(offset: newTxt.length));
+    return TextEditingValue(text: newTxt, selection: TextSelection.collapsed(offset: newTxt.length));
   }
 }
 
@@ -96,8 +80,8 @@ class ZInputFormatterNumMaxMin extends TextInputFormatter {
 
   ZInputFormatterNumMaxMin(
     this.value, {
-    @required this.isMax,
-  }) : assert(isMax != null);
+    required this.isMax,
+  });
 
   ZInputFormatterNumMaxMin.max(this.value) : isMax = true;
 
@@ -116,9 +100,6 @@ class ZInputFormatterNumMaxMin extends TextInputFormatter {
     double inputValue = newValue.text.toDouble ?? 0;
     return (isMax ? inputValue <= value : inputValue >= value)
         ? newValue
-        : TextEditingValue(
-            text: value.toString(),
-            selection:
-                TextSelection.collapsed(offset: value.toString().length));
+        : TextEditingValue(text: value.toString(), selection: TextSelection.collapsed(offset: value.toString().length));
   }
 }

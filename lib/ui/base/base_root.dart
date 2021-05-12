@@ -8,34 +8,34 @@ import 'package:flutter_assist/flutter_assist.dart';
 /// description 页面基类
 class ZBaseRoot extends StatefulWidget {
   /*整体配置*/
-  final GestureTapCallback clickBack;
-  final Widget body;
-  final Color bgColor;
-  final bool resizeToAvoidBottomInset;
-  final Widget floatingActionButton;
-  final Function onWillPop;
-  final SystemUiOverlayStyle statusBarStyle;
-  final Widget bottomNavigationBar;
-  final FloatingActionButtonLocation floatingActionButtonLocation;
+  final GestureTapCallback? clickBack;
+  final Widget? body;
+  final Color? bgColor;
+  final bool? resizeToAvoidBottomInset;
+  final Widget? floatingActionButton;
+  final Function? onWillPop;
+  final SystemUiOverlayStyle? statusBarStyle;
+  final Widget? bottomNavigationBar;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
   final bool extendBody;
   final bool belowStatusBar;
-  final Widget drawer;
-  final Widget endDrawer;
+  final Widget? drawer;
+  final Widget? endDrawer;
   final bool drawerEnableOpenDragGesture;
   final bool endDrawerEnableOpenDragGesture;
 
   /*标题栏配置*/
   final dynamic title;
-  final double titleSpacing;
+  final double? titleSpacing;
   final bool centerTitle;
-  final Widget leading;
-  final double leadingWidth;
+  final Widget? leading;
+  final double? leadingWidth;
   final bool canBack;
-  final double elevation;
+  final double? elevation;
 
   //常用的用IconButton来表示，不常用的用PopupMenuButton来显示三个点，点击展开
-  final List<Widget> actions;
-  final Color barBgColor;
+  final List<Widget>? actions;
+  final Color? barBgColor;
   final bool isDarkTheme;
 
   const ZBaseRoot({
@@ -73,11 +73,11 @@ class ZBaseRoot extends StatefulWidget {
 class _ZBaseRootState extends State<ZBaseRoot> {
   @override
   Widget build(BuildContext context) {
-    Widget titleWidget;
+    Widget? titleWidget;
     if (widget.title is String) {
       titleWidget = Text(
         widget.title,
-        style: (widget.isDarkTheme ?? true) ? ZConfigBaseRoot.styleLight : ZConfigBaseRoot.styleDark,
+        style: widget.isDarkTheme ? ZConfigBaseRoot.styleLight : ZConfigBaseRoot.styleDark,
       );
     } else if (widget.title is Widget) {
       titleWidget = widget.title;
@@ -86,7 +86,7 @@ class _ZBaseRootState extends State<ZBaseRoot> {
     child = Scaffold(
       resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
       appBar: titleWidget == null
-          ? ((widget.belowStatusBar ?? true)
+          ? (widget.belowStatusBar
               ? PreferredSize(
                   preferredSize: Size.fromHeight(ZDeviceUtil.topBarHeight * 0.07),
                   child: SafeArea(
@@ -99,8 +99,8 @@ class _ZBaseRootState extends State<ZBaseRoot> {
               title: titleWidget,
               titleSpacing: widget.titleSpacing ?? NavigationToolbar.kMiddleSpacing,
               elevation: widget.elevation ?? ZConfigBaseRoot.elevation,
-              centerTitle: widget.centerTitle ?? true,
-              leading: (!(widget.canBack ?? true))
+              centerTitle: widget.centerTitle,
+              leading: (!widget.canBack)
                   ? null
                   : IconButton(
                       icon: widget.leading ?? ZConfigBaseRoot.leading,
@@ -108,32 +108,32 @@ class _ZBaseRootState extends State<ZBaseRoot> {
                     ),
               leadingWidth: widget.leadingWidth,
               actions: widget.actions,
-              backgroundColor: widget.barBgColor ?? ((widget.isDarkTheme ?? true) ? null : Colors.white),
-              brightness: (widget.isDarkTheme ?? true) ? Brightness.dark : Brightness.light,
+              backgroundColor: widget.barBgColor ?? (widget.isDarkTheme ? null : Colors.white),
+              brightness: widget.isDarkTheme ? Brightness.dark : Brightness.light,
               iconTheme: IconThemeData(
-                color: (widget.isDarkTheme ?? true) ? ZConfigBaseRoot.styleLight.color : ZConfigBaseRoot.styleDark.color,
+                color: widget.isDarkTheme ? ZConfigBaseRoot.styleLight.color : ZConfigBaseRoot.styleDark.color,
               ),
             ),
       body: widget.body,
       drawer: widget.drawer,
       endDrawer: widget.endDrawer,
-      drawerEnableOpenDragGesture: widget.drawerEnableOpenDragGesture ?? true,
-      endDrawerEnableOpenDragGesture: widget.endDrawerEnableOpenDragGesture ?? true,
+      drawerEnableOpenDragGesture: widget.drawerEnableOpenDragGesture,
+      endDrawerEnableOpenDragGesture: widget.endDrawerEnableOpenDragGesture,
       backgroundColor: widget.bgColor ?? ZConfigColor.bgColor,
       floatingActionButton: widget.floatingActionButton,
       floatingActionButtonLocation: widget.floatingActionButtonLocation,
       bottomNavigationBar: widget.bottomNavigationBar,
-      extendBody: widget.extendBody ?? false,
+      extendBody: widget.extendBody,
     );
     if (widget.statusBarStyle != null) {
       child = AnnotatedRegion<SystemUiOverlayStyle>(
-        value: widget.statusBarStyle,
+        value: widget.statusBarStyle!,
         child: child,
       );
     }
     if (widget.onWillPop != null) {
       child = WillPopScope(
-        onWillPop: widget.onWillPop,
+        onWillPop: widget.onWillPop as Future<bool> Function()?,
         child: child,
       );
     }

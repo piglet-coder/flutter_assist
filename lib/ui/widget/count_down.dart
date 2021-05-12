@@ -11,17 +11,17 @@ import 'package:flutter_assist/flutter_assist.dart';
 typedef MeetCallback = bool Function();
 
 class ZCountDown extends StatefulWidget {
-  final double width;
-  final double height;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final Decoration decoration;
+  final double? width;
+  final double? height;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final Decoration? decoration;
   final int count;
   final String textStart;
   final String textEnd;
-  final MeetCallback onTap;
-  final TextStyle style;
-  final String format;
+  final MeetCallback? onTap;
+  final TextStyle? style;
+  final String? format;
 
   const ZCountDown({
     this.width,
@@ -42,8 +42,8 @@ class ZCountDown extends StatefulWidget {
 }
 
 class _ZCountDownState extends State<ZCountDown> {
-  Timer _timer;
-  String _text;
+  Timer? _timer;
+  late String _text;
   var _count;
   bool _ignoring = false;
 
@@ -57,7 +57,7 @@ class _ZCountDownState extends State<ZCountDown> {
   @override
   void dispose() {
     super.dispose();
-    if (_timer != null && _timer.isActive) _timer.cancel();
+    if (_timer != null && _timer!.isActive) _timer!.cancel();
   }
 
   @override
@@ -66,7 +66,7 @@ class _ZCountDownState extends State<ZCountDown> {
       ignoring: _ignoring,
       child: InkWell(
         onTap: () {
-          if (widget.onTap != null && widget.onTap()) _startTimer();
+          if (widget.onTap != null && widget.onTap!()) _startTimer();
         },
         child: Container(
           width: widget.width,
@@ -91,17 +91,17 @@ class _ZCountDownState extends State<ZCountDown> {
   void _startTimer() {
     setState(() {
       _ignoring = true;
-      _text = widget.format == null ? '$_count' : widget.format.replaceAll('%s', '$_count');
+      _text = widget.format == null ? '$_count' : widget.format!.replaceAll('%s', '$_count');
     });
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if (_count == 0) {
           _count = widget.count;
           _text = widget.textEnd;
-          _timer.cancel();
+          _timer!.cancel();
           _ignoring = false;
         } else {
-          _text = widget.format == null ? '${--_count}' : widget.format.replaceAll('%s', '${--_count}');
+          _text = widget.format == null ? '${--_count}' : widget.format!.replaceAll('%s', '${--_count}');
         }
       });
     });

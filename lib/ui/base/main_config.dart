@@ -11,11 +11,11 @@ import 'package:flutter_assist/flutter_assist.dart';
 class ZMainConfig extends StatelessWidget {
   final Widget child;
   final String title;
-  final ThemeData theme;
-  final List<LocalizationsDelegate<dynamic>> localizationsDelegates;
+  final ThemeData? theme;
+  final List<LocalizationsDelegate<dynamic>>? localizationsDelegates;
 
   ZMainConfig({
-    @required this.child,
+    required this.child,
     this.title = '',
     this.theme,
     this.localizationsDelegates,
@@ -40,7 +40,7 @@ class ZMainConfig extends StatelessWidget {
             onTap: () {
               FocusScopeNode currentFocus = FocusScope.of(context);
               if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-                FocusManager.instance.primaryFocus.unfocus();
+                FocusManager.instance.primaryFocus!.unfocus();
               }
             },
             behavior: HitTestBehavior.translucent,
@@ -50,7 +50,7 @@ class ZMainConfig extends StatelessWidget {
         child = botToastBuilder(context, child);
         return child;
       },
-      title: title ?? '',
+      title: title,
       theme: theme,
       navigatorObservers: [BotToastNavigatorObserver()],
       localizationsDelegates: delegates,

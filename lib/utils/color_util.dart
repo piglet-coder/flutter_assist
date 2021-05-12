@@ -15,7 +15,7 @@ class ZColorUtil{
 
   ///获取随机颜色
   static Color randomColor({double alpha = 1.0}) {
-    assert(alpha != null && alpha >= 0.0 && alpha <= 1.0, '透明度不正确，当前透明度为($alpha)');
+    assert(alpha >= 0.0 && alpha <= 1.0, '透明度不正确，当前透明度为($alpha)');
     Random random = Random.secure();
     return Color.fromARGB((255*alpha).round(), random.nextInt(255), random.nextInt(255), random.nextInt(255));
   }

@@ -14,18 +14,18 @@ enum ViewState {
 
 class ZBaseViewModel with ChangeNotifier {
   bool _disposed = false;
-  ViewState _viewState;
-  BuildContext context;
-  bool autoLoadData;
+  ViewState? _viewState;
+  BuildContext? context;
+  bool? autoLoadData;
 
-  ZBaseViewModel({ViewState viewState, BuildContext context}) {
+  ZBaseViewModel({ViewState? viewState, BuildContext? context}) {
     _viewState = (viewState ?? ViewState.idle);
     context = context;
     // if(ZConfigUtil.pageStart != null) ZConfigUtil.pageStart('${runtimeType.toString().replaceAll('ViewModel', 'Page')}');
     debugPrint('ZBaseViewModel---constructor--->$runtimeType');
   }
 
-  ViewState get viewState => _viewState;
+  ViewState? get viewState => _viewState;
 
   bool get isBusy => _viewState == ViewState.busy;
 
@@ -39,7 +39,7 @@ class ZBaseViewModel with ChangeNotifier {
     this.context = context;
   }
 
-  set viewState(ViewState viewState) {
+  set viewState(ViewState? viewState) {
     _viewState = viewState;
     notifyListeners();
   }

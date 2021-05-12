@@ -7,7 +7,7 @@ import 'package:flutter_assist/flutter_assist.dart';
 extension ExtensionNum on num{
 
   ///适配不同分辨率的手机像素
-  num get toFit => this * (ZDeviceUtil.screenWidth/ZConfigConstant.uiWidth);
+  double get toFit => this * (ZDeviceUtil.screenWidth/ZConfigConstant.uiWidth);
 
-  bool get isMonth => this != null && this is int && this >= 1 && this <= 12;
+  bool get isMonth => this is int && this >= 1 && this <= 12;
 }

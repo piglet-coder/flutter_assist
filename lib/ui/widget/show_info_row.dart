@@ -7,24 +7,24 @@ import 'package:flutter_assist/flutter_assist.dart';
 /// description 通用左右显示布局
 class ZShowInfoRow extends StatelessWidget {
   final dynamic keyStr;
-  final TextStyle keyStyle;
-  final int keyFlex;
-  final String valueStr;
-  final TextStyle valueStyle;
-  final int valueFlex;
+  final TextStyle? keyStyle;
+  final int? keyFlex;
+  final String? valueStr;
+  final TextStyle? valueStyle;
+  final int? valueFlex;
   final int valueMaxLine;
-  final Widget rightIcon;
+  final Widget? rightIcon;
 
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final Color bgColor;
-  final bool valueIsEnd;
-  final double centerSpace;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final Color? bgColor;
+  final bool? valueIsEnd;
+  final double? centerSpace;
   final bool hasDivider;
-  final Color dividerColor;
-  final EdgeInsets dividerMargin;
-  final VoidCallback onTap;
-  final double rightIconSpace;
+  final Color? dividerColor;
+  final EdgeInsets? dividerMargin;
+  final VoidCallback? onTap;
+  final double? rightIconSpace;
 
   const ZShowInfoRow({
     this.keyStr,

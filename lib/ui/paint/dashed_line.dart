@@ -6,12 +6,12 @@ import 'package:flutter_assist/flutter_assist.dart';
 /// email zdl328465042@163.com
 /// description 虚线
 class ZDashedLine extends StatelessWidget {
-  final Color color;
-  final double dashedWidth;
-  final double dashedHeight;
-  final double dashedGap;
-  final double rootWidth;
-  final EdgeInsets margin;
+  final Color? color;
+  final double? dashedWidth;
+  final double? dashedHeight;
+  final double? dashedGap;
+  final double? rootWidth;
+  final EdgeInsets? margin;
 
   const ZDashedLine({
     this.color,
@@ -35,10 +35,10 @@ class ZDashedLine extends StatelessWidget {
 }
 
 class _DashedPainter extends CustomPainter {
-  final Color color;
-  final double dashedWidth;
-  final double dashedHeight;
-  final double dashedGap;
+  final Color? color;
+  final double? dashedWidth;
+  final double? dashedHeight;
+  final double? dashedGap;
 
   _DashedPainter(
     this.color,
@@ -57,8 +57,7 @@ class _DashedPainter extends CustomPainter {
     double startX = 0;
     final double space = (dashedWidth ?? 3.toFit) + (dashedGap ?? 3.toFit);
     while (startX < maxWidth) {
-      canvas.drawLine(
-          Offset(startX, 0), Offset(startX + dashedWidth, 0), paint);
+      canvas.drawLine(Offset(startX, 0), Offset(startX + dashedWidth!, 0), paint);
       startX += space;
     }
   }

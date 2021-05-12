@@ -17,7 +17,7 @@ class ZGPSUtil {
 
   /// 计算两点间距离，保留三位小数
   /// return double(unit:km)
-  static double distance(double lat1, double lng1, double lat2, double lng2) {
+  static double? distance(double lat1, double lng1, double lat2, double lng2) {
     double radLat1 = _rad(lat1);
     double radLat2 = _rad(lat2);
     double a = radLat1 - radLat2;

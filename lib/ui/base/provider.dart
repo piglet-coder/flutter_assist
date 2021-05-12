@@ -7,23 +7,23 @@ import 'base_view_model.dart';
 /// date 2020/11/6 16:36
 /// email zdl328465042@163.com
 /// description Provider封装类
-class ZProvider<T extends ChangeNotifier> extends StatefulWidget {
+class ZProvider<T extends ChangeNotifier?> extends StatefulWidget {
   final T model;
   final ValueWidgetBuilder<T> builder;
-  final Widget child;
-  final Function(T model) onModelReady;
+  final Widget? child;
+  final Function(T model)? onModelReady;
   final bool autoDispose;
   final bool autoInitState;
   final bool autoLoadData;
-  final Function initState;
-  final Function dispose;
+  final Function? initState;
+  final Function? dispose;
   final bool wantKeepAlive;
-  final SystemUiOverlayStyle style;
+  final SystemUiOverlayStyle? style;
 
   const ZProvider({
-    Key key,
-    @required this.model,
-    @required this.builder,
+    Key? key,
+    required this.model,
+    required this.builder,
     this.child,
     this.onModelReady,
     this.autoDispose: true,
@@ -39,9 +39,9 @@ class ZProvider<T extends ChangeNotifier> extends StatefulWidget {
   _ZProviderState<T> createState() => _ZProviderState<T>();
 }
 
-class _ZProviderState<T extends ChangeNotifier> extends State<ZProvider<T>>
+class _ZProviderState<T extends ChangeNotifier?> extends State<ZProvider<T?>>
     with AutomaticKeepAliveClientMixin {
-  T model;
+  T? model;
 
   @override
   void initState() {
@@ -52,22 +52,22 @@ class _ZProviderState<T extends ChangeNotifier> extends State<ZProvider<T>>
     if (model is ZBaseViewModel) {
       ZBaseViewModel mModel = model as ZBaseViewModel;
       mModel.setBuildContext(context);
-      mModel.autoLoadData = widget.autoLoadData ?? false;
+      mModel.autoLoadData = widget.autoLoadData;
       if (widget.autoInitState == true) {
         mModel.initState();
       }
     }
     if (null != widget.initState) {
-      widget.initState.call();
+      widget.initState!.call();
     }
   }
 
   @override
   void dispose() {
-    if (widget.autoDispose ?? false) model.dispose();
+    if (widget.autoDispose) model!.dispose();
     super.dispose();
     if (null != widget.dispose) {
-      widget.dispose.call();
+      widget.dispose!.call();
     }
   }
 
@@ -79,15 +79,15 @@ class _ZProviderState<T extends ChangeNotifier> extends State<ZProvider<T>>
     }
     var child;
     child = ChangeNotifierProvider<T>.value(
-      value: model,
+      value: model!,
       child: Consumer<T>(
         builder: widget.builder,
-        child: widget.child,
+        child: widget.child!,
       ),
     );
     if (widget.style != null) {
       child = AnnotatedRegion<SystemUiOverlayStyle>(
-        value: widget.style,
+        value: widget.style!,
         child: child,
       );
     }
@@ -117,5 +117,5 @@ class _ZProviderState<T extends ChangeNotifier> extends State<ZProvider<T>>
   // }
 
   @override
-  bool get wantKeepAlive => widget.wantKeepAlive ?? false;
+  bool get wantKeepAlive => widget.wantKeepAlive;
 }

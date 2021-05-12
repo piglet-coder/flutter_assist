@@ -28,11 +28,10 @@ class ZShowBigImg extends StatelessWidget {
     BuildContext context, {
     dynamic urls,
     int selectIndex = 0,
-    PageController pageController,
+    PageController? pageController,
   }) {
     assert(selectIndex >= 0, 'selectIndex必须大于等于0');
-    assert(urls is String || urls is List || urls is File,
-        'ZShowBigImg中urls格式不正确，请检查');
+    assert(urls is String || urls is List || urls is File, 'ZShowBigImg中urls格式不正确，请检查');
     if (urls == null || urls == '' || urls == []) {
       return ZToastUtil.show('没有可以查看的图片');
     }
@@ -83,13 +82,12 @@ class ZShowBigImg extends StatelessWidget {
             height: 220.toFit,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius:
-              BorderRadius.vertical(top: Radius.circular(20.toFit)),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20.toFit)),
             ),
             child: Column(
               children: [
                 InkWell(
-                  onTap: () => saveImage(pageController.page.round()),
+                  onTap: () => saveImage(pageController.page!.round()),
                   child: Container(
                     height: 100.toFit,
                     alignment: Alignment.center,
@@ -102,7 +100,10 @@ class ZShowBigImg extends StatelessWidget {
                     ),
                   ),
                 ),
-                ZLine(lineColor: '#F8F8F8'.toColor(), height: 20.toFit,),
+                ZLine(
+                  lineColor: '#F8F8F8'.toColor(),
+                  height: 20.toFit,
+                ),
                 InkWell(
                   onTap: () => ZIntentUtil.finish(context),
                   child: Container(
@@ -214,7 +215,7 @@ class ZShowBigImg extends StatelessWidget {
 
 class _DotsIndicator extends AnimatedWidget {
   _DotsIndicator({
-    this.controller,
+    required this.controller,
     this.itemCount,
     this.onPageSelected,
     this.color: Colors.grey,
@@ -222,9 +223,9 @@ class _DotsIndicator extends AnimatedWidget {
 
   final PageController controller;
 
-  final int itemCount;
+  final int? itemCount;
 
-  final ValueChanged<int> onPageSelected;
+  final ValueChanged<int>? onPageSelected;
 
   final Color color;
 
@@ -252,7 +253,7 @@ class _DotsIndicator extends AnimatedWidget {
             width: _kDotSize * zoom,
             height: _kDotSize * zoom,
             child: InkWell(
-              onTap: () => onPageSelected(index),
+              onTap: () => onPageSelected!(index),
             ),
           ),
         ),
@@ -263,7 +264,7 @@ class _DotsIndicator extends AnimatedWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List<Widget>.generate(itemCount, _buildDot),
+      children: List<Widget>.generate(itemCount!, _buildDot),
     );
   }
 }

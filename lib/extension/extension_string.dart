@@ -14,10 +14,10 @@ extension ExtensionString on String {
   bool get isNumber => null != this.toDouble;
 
   /// String转int
-  int get toInt => int.tryParse(this);
+  int? get toInt => int.tryParse(this);
 
   /// String转double
-  double get toDouble => double.tryParse(this);
+  double? get toDouble => double.tryParse(this);
 
   /// 对字符串进行md5加密
   String get encodeMd5 => hex.encode((md5.convert(Utf8Encoder().convert(this))).bytes);
@@ -64,7 +64,7 @@ extension ExtensionString on String {
   String findChar(int num) => (num < 1 || num > this.length) ? '' : this.substring(num - 1, num);
 
   /// 字符串转颜色
-  Color toColor({double alpha, Color defColor = Colors.red}) {
+  Color toColor({double? alpha, Color defColor = Colors.red}) {
     try {
       String alphaRadix = 'ff';
       if (null != alpha && 0 <= alpha && 1 > alpha) {
@@ -73,28 +73,20 @@ extension ExtensionString on String {
       switch (this.length) {
         case 0:
           return defColor;
-          break;
         case 3:
-          return Color(int.tryParse('$alphaRadix${this.findChar(1) * 2}${this.findChar(2) * 2}${this.findChar(3) * 2}', radix: 16));
-          break;
+          return Color(int.tryParse('$alphaRadix${this.findChar(1) * 2}${this.findChar(2) * 2}${this.findChar(3) * 2}', radix: 16)!);
         case 4:
-          return Color(int.tryParse('$alphaRadix${this.findChar(2) * 2}${this.findChar(3) * 2}${this.findChar(4) * 2}', radix: 16));
-          break;
+          return Color(int.tryParse('$alphaRadix${this.findChar(2) * 2}${this.findChar(3) * 2}${this.findChar(4) * 2}', radix: 16)!);
         case 6:
-          return Color(int.tryParse('$alphaRadix$this', radix: 16));
-          break;
+          return Color(int.tryParse('$alphaRadix$this', radix: 16)!);
         case 7:
-          return Color(int.tryParse('$alphaRadix${this.substring(1, 7)}', radix: 16));
-          break;
+          return Color(int.tryParse('$alphaRadix${this.substring(1, 7)}', radix: 16)!);
         case 8:
-          return Color(int.tryParse(this.substring(0, 8), radix: 16));
-          break;
+          return Color(int.tryParse(this.substring(0, 8), radix: 16)!);
         case 9:
-          return Color(int.tryParse(this.substring(1, 9), radix: 16));
-          break;
+          return Color(int.tryParse(this.substring(1, 9), radix: 16)!);
         default:
           return defColor;
-          break;
       }
     } catch (e) {
       print(e);
@@ -121,7 +113,7 @@ extension ExtensionString on String {
   String replaceExceptFirst(Pattern from, String replace) {
     if (this.contains(from)) {
       int firstIndex = this.indexOf(from);
-      return this.replaceAllMapped(from, (match) => match.start == firstIndex ? match.pattern : replace);
+      return this.replaceAllMapped(from, (match) => match.start == firstIndex ? match.pattern as String : replace);
     } else {
       return this;
     }

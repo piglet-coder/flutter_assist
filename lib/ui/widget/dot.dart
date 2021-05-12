@@ -8,15 +8,15 @@ import 'package:flutter_assist/flutter_assist.dart';
 class ZDot extends StatelessWidget {
   final double radius;
   final Color color;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final bool isOutline;
-  final double outlineWidth;
-  final Widget child;
+  final double? outlineWidth;
+  final Widget? child;
 
   const ZDot({
-    @required this.radius,
-    @required this.color,
+    required this.radius,
+    required this.color,
     this.padding,
     this.margin,
     this.isOutline = false,

@@ -8,28 +8,28 @@ import 'package:flutter_assist/flutter_assist.dart';
 /// description 通用左右输入布局
 class ZInputInfoRow extends StatelessWidget {
   final dynamic keyStr;
-  final TextStyle keyStyle;
-  final int keyFlex;
-  final String valueStr;
-  final TextStyle valueStyle;
-  final int valueFlex;
+  final TextStyle? keyStyle;
+  final int? keyFlex;
+  final String? valueStr;
+  final TextStyle? valueStyle;
+  final int? valueFlex;
   final int valueMaxLine;
-  final String valueHintStr;
-  final TextStyle valueHintStyle;
-  final TextEditingController controller;
-  final List<TextInputFormatter> inputFormatters;
-  final TextInputType inputType;
-  final EdgeInsets contentPadding;
-  final bool obscureText;
+  final String? valueHintStr;
+  final TextStyle? valueHintStyle;
+  final TextEditingController? controller;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? inputType;
+  final EdgeInsets? contentPadding;
+  final bool? obscureText;
 
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final Color bgColor;
-  final bool valueIsEnd;
-  final double centerSpace;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final Color? bgColor;
+  final bool? valueIsEnd;
+  final double? centerSpace;
   final bool hasDivider;
-  final Color dividerColor;
-  final EdgeInsets dividerMargin;
+  final Color? dividerColor;
+  final EdgeInsets? dividerMargin;
 
   const ZInputInfoRow({
     this.keyStr,

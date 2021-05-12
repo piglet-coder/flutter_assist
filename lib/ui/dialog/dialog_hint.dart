@@ -8,13 +8,13 @@ import 'package:flutter_assist/flutter_assist.dart';
 class ZDialogHint extends StatelessWidget {
   final String msg;
   final ZDialogHintEnum enumType;
-  final double width;
-  final double height;
-  final Color bgColor;
+  final double? width;
+  final double? height;
+  final Color? bgColor;
   final Color fontColor;
-  final double fontSize;
-  final Widget noDataIcon;
-  final double drawablePadding;
+  final double? fontSize;
+  final Widget? noDataIcon;
+  final double? drawablePadding;
 
   const ZDialogHint._(
     this.msg,
@@ -31,27 +31,26 @@ class ZDialogHint extends StatelessWidget {
   //请使用此方法调用
   static void show(
     BuildContext context, {
-    @required String msg,
-    @required ZDialogHintEnum enumType,
-    double width,
-    double height,
-    Color bgColor,
+    required String msg,
+    required ZDialogHintEnum enumType,
+    double? width,
+    double? height,
+    Color? bgColor,
     Color fontColor = Colors.white,
-    double fontSize,
-    Widget noDataIcon,
-    double drawablePadding,
+    double? fontSize,
+    Widget? noDataIcon,
+    double? drawablePadding,
   }) {
     showDialog(
       context: context,
       useRootNavigator: false,
-      builder: (_) => ZDialogHint._(msg, enumType, width, height, bgColor,
-          fontColor, fontSize, noDataIcon, drawablePadding),
+      builder: (_) => ZDialogHint._(msg, enumType, width, height, bgColor, fontColor, fontSize, noDataIcon, drawablePadding),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget icon;
+    Widget? icon;
     switch (enumType) {
       case ZDialogHintEnum.success:
         icon = Icon(Icons.check_circle_outline, color: Colors.white);

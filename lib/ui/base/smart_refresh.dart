@@ -11,18 +11,18 @@ class ZSmartRefresh extends StatelessWidget {
   final Widget child;
   final bool showNoDataWidget;
   final String noDataMsg;
-  final Widget noDataWidget;
-  final String loadMoreNoDataText;
+  final Widget? noDataWidget;
+  final String? loadMoreNoDataText;
   final bool enableRefresh;
   final bool enableLoad;
-  final Function onRefresh;
-  final Function onLoad;
-  final Color bgColor;
+  final Function? onRefresh;
+  final Function? onLoad;
+  final Color? bgColor;
   final bool lightText;
 
   const ZSmartRefresh({
-    @required this.controller,
-    @required this.child,
+    required this.controller,
+    required this.child,
     this.showNoDataWidget = false,
     this.noDataMsg = '暂无数据',
     this.noDataWidget,
@@ -39,25 +39,14 @@ class ZSmartRefresh extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget sr = SmartRefresher(
       controller: controller,
-      child: showNoDataWidget
-          ? (noDataWidget == null
-              ? Center(child: Text(noDataMsg))
-              : noDataWidget)
-          : child,
+      child: showNoDataWidget ? (noDataWidget == null ? Center(child: Text(noDataMsg)) : noDataWidget!) : child,
       header: ClassicHeader(
         textStyle: TextStyle(color: lightText ? Colors.white70 : Colors.grey),
-        failedIcon:
-            Icon(Icons.error, color: lightText ? Colors.white70 : Colors.grey),
-        completeIcon:
-            Icon(Icons.done, color: lightText ? Colors.white70 : Colors.grey),
-        idleIcon: Icon(Icons.arrow_downward,
-            color: lightText ? Colors.white70 : Colors.grey),
-        releaseIcon:
-            Icon(Icons.refresh, color: lightText ? Colors.white70 : Colors.grey),
-        refreshingIcon: SizedBox(
-            width: 25.0,
-            height: 25.0,
-            child: const CupertinoActivityIndicator()),
+        failedIcon: Icon(Icons.error, color: lightText ? Colors.white70 : Colors.grey),
+        completeIcon: Icon(Icons.done, color: lightText ? Colors.white70 : Colors.grey),
+        idleIcon: Icon(Icons.arrow_downward, color: lightText ? Colors.white70 : Colors.grey),
+        releaseIcon: Icon(Icons.refresh, color: lightText ? Colors.white70 : Colors.grey),
+        refreshingIcon: SizedBox(width: 25.0, height: 25.0, child: const CupertinoActivityIndicator()),
         completeText: '加载完成',
         failedText: '加载失败',
         refreshingText: '下拉刷新',
@@ -66,16 +55,10 @@ class ZSmartRefresh extends StatelessWidget {
       ),
       footer: ClassicFooter(
         textStyle: TextStyle(color: lightText ? Colors.white70 : Colors.grey),
-        failedIcon:
-            Icon(Icons.error, color: lightText ? Colors.white70 : Colors.grey),
-        canLoadingIcon: Icon(Icons.autorenew,
-            color: lightText ? Colors.white70 : Colors.grey),
-        idleIcon: Icon(Icons.arrow_upward,
-            color: lightText ? Colors.white70 : Colors.grey),
-        loadingIcon: SizedBox(
-            width: 25.0,
-            height: 25.0,
-            child: const CupertinoActivityIndicator()),
+        failedIcon: Icon(Icons.error, color: lightText ? Colors.white70 : Colors.grey),
+        canLoadingIcon: Icon(Icons.autorenew, color: lightText ? Colors.white70 : Colors.grey),
+        idleIcon: Icon(Icons.arrow_upward, color: lightText ? Colors.white70 : Colors.grey),
+        loadingIcon: SizedBox(width: 25.0, height: 25.0, child: const CupertinoActivityIndicator()),
         idleText: '上拉加载更多',
         canLoadingText: '释放以加载更多',
         failedText: '加载失败',
@@ -84,8 +67,8 @@ class ZSmartRefresh extends StatelessWidget {
       ),
       enablePullDown: enableRefresh,
       enablePullUp: enableLoad,
-      onRefresh: onRefresh,
-      onLoading: onLoad,
+      onRefresh: onRefresh as void Function(),
+      onLoading: onLoad as void Function(),
     );
     return bgColor == null
         ? sr

@@ -15,9 +15,9 @@ abstract class ZBaseViewModelList<T> extends ZBaseViewModel {
 
   // 下拉刷新
   refresh({
-    ValueChanged<List<T>> onSuccess,
-    ValueChanged<List<T>> onCache,
-    ValueChanged<String> onError,
+    ValueChanged<List<T>>? onSuccess,
+    ValueChanged<List<T>>? onCache,
+    ValueChanged<String>? onError,
   }) async {
     setBusy();
     bool hasMoreData = (hasMore() == true);
@@ -77,9 +77,9 @@ abstract class ZBaseViewModelList<T> extends ZBaseViewModel {
 
   /// 上拉加载更多
   loadMore({
-    ValueChanged<List<T>> onSuccess,
-    ValueChanged<List<T>> onCache,
-    ValueChanged<String> onError,
+    ValueChanged<List<T>>? onSuccess,
+    ValueChanged<List<T>>? onCache,
+    ValueChanged<String>? onError,
   }) async {
     try {
       loadData(
@@ -130,10 +130,10 @@ abstract class ZBaseViewModelList<T> extends ZBaseViewModel {
 
   /// 加载数据
   loadData({
-    int pageIndex,
-    ValueChanged<List<T>> onSuccess,
-    ValueChanged<List<T>> onCache,
-    ValueChanged<String> onError,
+    int? pageIndex,
+    ValueChanged<List<T>>? onSuccess,
+    ValueChanged<List<T>>? onCache,
+    ValueChanged<String>? onError,
   });
 
   ///有上拉加载更多

@@ -5,16 +5,13 @@ import 'package:flutter/material.dart';
 /// email zdl328465042@163.com
 /// description 通过path画背景
 class ZDrawByPath extends StatelessWidget {
-  final List<List<Coordinate>> spots;
-  final List<Color> colors;
+  final List<List<Coordinate>>? spots;
+  final List<Color>? colors;
 
   const ZDrawByPath({
     this.spots,
     this.colors,
-  }) : assert(spots != null &&
-            colors != null &&
-            spots.length != 0 &&
-            spots.length == colors.length);
+  }) : assert(spots != null && colors != null && spots.length != 0 && spots.length == colors.length);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +24,8 @@ class ZDrawByPath extends StatelessWidget {
 }
 
 class _PathPaint extends CustomPainter {
-  final List<List<Coordinate>> spots;
-  final List<Color> colors;
+  final List<List<Coordinate>>? spots;
+  final List<Color>? colors;
 
   const _PathPaint(
     this.spots,
@@ -38,10 +35,10 @@ class _PathPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()..style = PaintingStyle.fill;
-    for (int i = 0; i < spots.length; i++) {
-      List<Coordinate> list = spots[i];
-      if(list.length == 0) continue;
-      paint.color = colors[i];
+    for (int i = 0; i < spots!.length; i++) {
+      List<Coordinate> list = spots![i];
+      if (list.length == 0) continue;
+      paint.color = colors![i];
       Path path = Path();
       path.moveTo(list[0].cx, list[0].cy);
       for (Coordinate coordinate in list) {

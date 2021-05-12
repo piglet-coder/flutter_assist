@@ -10,13 +10,13 @@ import 'package:flutter_assist/flutter_assist.dart';
 /// description 可收起、展开的text
 class ZExpandableText extends StatefulWidget {
   final String data;
-  final TextStyle style;
-  final int maxLines;
-  final String expandText;
-  final String collapseText;
-  final TextStyle linkStyle;
-  final bool expanded;
-  final TextAlign textAlign;
+  final TextStyle? style;
+  final int? maxLines;
+  final String? expandText;
+  final String? collapseText;
+  final TextStyle? linkStyle;
+  final bool? expanded;
+  final TextAlign? textAlign;
 
   const ZExpandableText(
     this.data, {
@@ -27,15 +27,15 @@ class ZExpandableText extends StatefulWidget {
     this.linkStyle,
     this.expanded,
     this.textAlign,
-  }) : assert(data != null);
+  });
 
   @override
   _ZExpandableTextState createState() => _ZExpandableTextState();
 }
 
 class _ZExpandableTextState extends State<ZExpandableText> {
-  bool _expanded;
-  TapGestureRecognizer _linkTapGestureRecognizer;
+  late bool _expanded;
+  TapGestureRecognizer? _linkTapGestureRecognizer;
 
   @override
   void initState() {
@@ -47,7 +47,7 @@ class _ZExpandableTextState extends State<ZExpandableText> {
   @override
   Widget build(BuildContext context) {
     final DefaultTextStyle defStyle = DefaultTextStyle.of(context);
-    TextStyle effectiveStyle = widget.style;
+    TextStyle? effectiveStyle = widget.style;
     if (effectiveStyle == null || effectiveStyle.inherit) {
       effectiveStyle = defStyle.style.merge(effectiveStyle);
     }

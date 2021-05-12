@@ -20,41 +20,41 @@ import 'package:flutter/material.dart';
 class ZText extends StatelessWidget {
   ///Text属性
   final String data;
-  final TextStyle style;
-  final TextDecoration textDecoration;
-  final Color textDecorationColor;
-  final TextAlign textAlign;
-  final TextOverflow overflow;
-  final int maxLines;
+  final TextStyle? style;
+  final TextDecoration? textDecoration;
+  final Color? textDecorationColor;
+  final TextAlign? textAlign;
+  final TextOverflow? overflow;
+  final int? maxLines;
 
   ///外层Container属性
-  final double width;
-  final double height;
-  final EdgeInsetsGeometry padding;
-  final EdgeInsetsGeometry margin;
-  final AlignmentGeometry alignment;
-  final Color bgColor;
-  final String bgImg;
-  final BoxBorder border;
-  final BorderRadiusGeometry borderRadius;
-  final List<BoxShadow> boxShadow;
+  final double? width;
+  final double? height;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+  final AlignmentGeometry? alignment;
+  final Color? bgColor;
+  final String? bgImg;
+  final BoxBorder? border;
+  final BorderRadiusGeometry? borderRadius;
+  final List<BoxShadow>? boxShadow;
   final BoxShape shape;
-  final Gradient gradient;
+  final Gradient? gradient;
 
   ///上下左右图片
-  final Widget drawableStart;
-  final Widget drawableTop;
-  final Widget drawableEnd;
-  final Widget drawableBottom;
-  final double drawableStartPadding;
-  final double drawableTopPadding;
-  final double drawableEndPadding;
-  final double drawableBottomPadding;
-  final double drawablePadding;
+  final Widget? drawableStart;
+  final Widget? drawableTop;
+  final Widget? drawableEnd;
+  final Widget? drawableBottom;
+  final double? drawableStartPadding;
+  final double? drawableTopPadding;
+  final double? drawableEndPadding;
+  final double? drawableBottomPadding;
+  final double? drawablePadding;
   final bool isFill;
 
-  final VoidCallback onTap;
-  final GestureRecognizer onDrawableTap;
+  final VoidCallback? onTap;
+  final GestureRecognizer? onDrawableTap;
 
   const ZText(
     this.data, {
@@ -93,7 +93,7 @@ class ZText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DefaultTextStyle defStyle = DefaultTextStyle.of(context);
-    TextStyle effectiveStyle = style;
+    TextStyle? effectiveStyle = style;
     if (effectiveStyle == null || effectiveStyle.inherit) {
       effectiveStyle = defStyle.style.merge(effectiveStyle);
     }
@@ -103,11 +103,11 @@ class ZText extends StatelessWidget {
       style: effectiveStyle,
     );
 
-    TextSpan tsStart, tsTop, tsEnd, tsBottom;
+    TextSpan? tsStart, tsTop, tsEnd, tsBottom;
     if (null != drawableStart) {
       tsStart = TextSpan(
         children: [
-          WidgetSpan(child: drawableStart),
+          WidgetSpan(child: drawableStart!),
           WidgetSpan(child: SizedBox(width: drawableStartPadding ?? drawablePadding ?? 0)),
         ],
         recognizer: onDrawableTap,
@@ -116,7 +116,7 @@ class ZText extends StatelessWidget {
     if (null != drawableTop) {
       tsTop = TextSpan(
         children: [
-          WidgetSpan(child: drawableTop),
+          WidgetSpan(child: drawableTop!),
           WidgetSpan(child: SizedBox(height: drawableTopPadding ?? drawablePadding ?? 0)),
         ],
         recognizer: onDrawableTap,
@@ -126,7 +126,7 @@ class ZText extends StatelessWidget {
       tsEnd = TextSpan(
         children: [
           WidgetSpan(child: SizedBox(width: drawableEndPadding ?? drawablePadding ?? 0)),
-          WidgetSpan(child: drawableEnd),
+          WidgetSpan(child: drawableEnd!),
         ],
         recognizer: onDrawableTap,
       );
@@ -135,7 +135,7 @@ class ZText extends StatelessWidget {
       tsBottom = TextSpan(
         children: [
           WidgetSpan(child: SizedBox(height: drawableBottomPadding ?? drawablePadding ?? 0)),
-          WidgetSpan(child: drawableBottom),
+          WidgetSpan(child: drawableBottom!),
         ],
         recognizer: onDrawableTap,
       );
@@ -242,7 +242,7 @@ class ZText extends StatelessWidget {
         text: textSpan,
         softWrap: true,
         textAlign: textAlign,
-        maxLines: maxLines != null ? ((tsTop != null || tsBottom != null) ? maxLines + 1 : maxLines) : null,
+        maxLines: maxLines != null ? ((tsTop != null || tsBottom != null) ? maxLines! + 1 : maxLines) : null,
         overflow: overflow ?? TextOverflow.clip,
       );
     });
@@ -261,7 +261,7 @@ class ZText extends StatelessWidget {
         boxShadow: boxShadow,
         shape: shape,
         gradient: gradient,
-        image: null == bgImg ? null : DecorationImage(image: AssetImage(bgImg), fit: BoxFit.cover),
+        image: null == bgImg ? null : DecorationImage(image: AssetImage(bgImg!), fit: BoxFit.cover),
       ),
       child: result,
     );
